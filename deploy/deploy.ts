@@ -2,17 +2,30 @@ import { utils, Wallet } from "zksync-web3";
 import * as ethers from "ethers";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { Deployer } from "@matterlabs/hardhat-zksync-deploy";
+const { readFileSync } = require("fs");
 
 // An example of a deploy script that will deploy and call a simple contract.
 export default async function (hre: HardhatRuntimeEnvironment) {
   console.log(`Running deploy script for the contract(s)`);
+  const getWallet = () => {
+    const json = JSON.parse(readFileSync("./wallet.json"));
+    return Wallet.fromMnemonic(json.phrase, json.path, json.locale);
+  };
 
   // Initialize the wallet.
-  const wallet = new Wallet("PRIVATEKEY");
+  const wallet = getWallet();
+
+  console.log('got wallet. ', wallet.address)
 
   // Create deployer object and load the artifact of the contract we want to deploy.
   const deployer = new Deployer(hre, wallet);
-  const erc20 = await deployer.loadArtifact("ERC20zkSWT");
+
+  console.log('got deployer', deployer)
+
+  //const erc20 = await deployer.loadArtifact("ERC20zkSWT");
+  const marketplaceList = await deployer.loadArtifact("MarketplaceList")
+
+  console.log('got marketplaceList', marketplaceList)
 
   // Deposit some funds to L2 in order to be able to perform L2 transactions.
   const depositAmount = ethers.utils.parseEther("0.001");
@@ -21,47 +34,17 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     token: utils.ETH_ADDRESS,
     amount: depositAmount,
   });
+
   // Wait until the deposit is processed on zkSync
   await depositHandle.wait();
+  //console.log('got deposit', deposit.transactionHash)
 
-  // Deploy this contract. The returned object will be of a `Contract` type, similarly to ones in `ethers`.
-  // `greeting` is an argument for contract constructor.
-  // const greeting = "Hi there!";
-   //const greeterContract = await deployer.deploy(artifact, [greeting]);
-   const erc20instance = await deployer.deploy(erc20, []);
+  // Deploy the contracts. The returned object will be of a `Contract` type, similarly to ones in `ethers`.
+   //  const erc20instance = await deployer.deploy(erc20, []);
+  const marketplaceListInstance = await deployer.deploy(marketplaceList, []);
 
   // Show the contract info.
-  const contractAddress = erc20instance.address;
-  console.log(`${erc20.contractName} was deployed to ${contractAddress}`);
+  const contractAddress = marketplaceListInstance.address;
+  console.log(`${marketplaceListInstance.contractName} was deployed to ${contractAddress}`);
 
-  // // ERC20 deposit
-const ercDepositTx = await wallet.deposit({
-    token: contractAddress,
-    amount: '1000000',
-    // If the zkSync contract does not have the necessary allowance yet,
-    // we can set this flag to approve the deposit
-    approveERC20: true
-});
-// // Wait until the deposit is processed by zkSync
- const sendTokens = await ercDepositTx.wait();
- console.log(sendTokens)
-  // Call the deployed contract.
-  //const greetingFromContract = await greeterContract.greet();
-//   if (greetingFromContract == greeting) {
-//     console.log(`Contract greets us with ${greeting}!`);
-//   } else {
-//     console.error(`Contract said something unexpected: ${greetingFromContract}`);
-//   }
-
-  // Edit the greeting of the contract
-  //const newGreeting = "Hey guys";
-  //const setNewGreetingHandle = await greeterContract.setGreeting(newGreeting);
-  //await setNewGreetingHandle.wait();
-
-  //const newGreetingFromContract = await greeterContract.greet();
-//   if (newGreetingFromContract == newGreeting) {
-//     console.log(`Contract greets us with ${newGreeting}!`);
-//   } else {
-//     console.error(`Contract said something unexpected: ${newGreetingFromContract}`);
-//   }
 }

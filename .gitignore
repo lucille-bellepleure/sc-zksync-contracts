@@ -1,6 +1,8 @@
 *.lock
+package-lock.json
 wallet.json
 /node_modules
 /out
 /artifacts-zk
 /cache-zk
+/flattened
