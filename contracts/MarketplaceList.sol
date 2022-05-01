@@ -13,27 +13,36 @@ import "./Ownable.sol";
 
 contract MarketplaceList is Ownable {
 
-    struct mpListItem {
+     struct mpListItem {
         string mpName;
         string mpMetaHash;
         address mpAddress;
         bool mpShown;
     } 
 
-    mpListItem[] mpListArray;
+    mpListItem[] public mpListArray;
 
     uint public defaultTTL;
+
+    string public name;
     
     event MarketplaceAdded(string mpName, string mpMetaHash, address mpAddress);
+
+    function setName(string memory _name) onlyOwner external {
+        name = _name;
+    }
+
+      function getName() public view returns (string memory) {
+        return name;
+    }
     
     function addMarketplace(string memory _mpName, string memory _mpMetaHash, address _mpAddress) onlyOwner external {
         require(bytes(_mpName).length != 0);
-        uint indexMarketplace = mpListArray.length;
-        mpListItem storage c = mpListArray[indexMarketplace++];
-        c.mpName = _mpName;
-        c.mpMetaHash = _mpMetaHash;
-        c.mpAddress = _mpAddress;
-        c.mpShown = true; 
+        mpListItem storage mplItem = mpListArray.push();
+        mplItem.mpName= _mpName;
+        mplItem.mpMetaHash = _mpMetaHash;
+        mplItem.mpAddress = _mpAddress;
+        mplItem.mpShown = true; 
         emit MarketplaceAdded(_mpName, _mpMetaHash, _mpAddress);
     }
 

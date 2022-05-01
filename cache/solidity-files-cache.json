@@ -37,8 +37,8 @@
       ]
     },
     "/home/michellerhyder/Documents/sc-zksync-contracts/contracts/MarketplaceList.sol": {
-      "lastModificationDate": 1651179852805,
-      "contentHash": "0f8726b5f64072471d468a92f29d600b",
+      "lastModificationDate": 1651444163259,
+      "contentHash": "d8c7c7213e6292544ba950076b855680",
       "sourceName": "contracts/MarketplaceList.sol",
       "solcConfig": {
         "version": "0.8.12",

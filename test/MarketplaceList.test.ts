@@ -34,7 +34,6 @@ describe("MarketplaceList", function () {
     // wait until the transaction is mined
     await addMarketplace.wait();
 
-
     expect(await marketplaceList.readMarketplace(0)).to.equal("Hola, mundo!");
   });
 });
