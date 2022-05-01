@@ -1,0 +1,24 @@
+ethers.provider.getSigner()
+await mlist.numberOfMarketplaces().toNumber()
+await mlist.numberOfMarketplaces()
+await mlist.owner()
+const mlist = await ethers.getContractAt("MarketplaceList", "0x9D619a62Eae798fB7b0c651efbcF49c2B5304a06")
+await mlist.owner()
+mlist.resolvedAddress
+const mlist = await (await ethers.getContractFactory("MarketplaceList")).attach("0x9D619a62Eae798fB7b0c651efbcF49c2B5304a06")
+await ethers.provider.getCode('0x9D619a62Eae798fB7b0c651efbcF49c2B5304a06')
+await ethers.provider..getCode('0x9D619a62Eae798fB7b0c651efbcF49c2B5304a06')
+await ethers.provider.getBlockNumber()
+await mlist.owner()
+  const mlist = await (await ethers.getContractFactory("MarketplaceList")).attach("0x100205C8BC182222299f95c7cD42D53ab133f72a")
+await mlist.numberOfMarketplaces()
+await mlist.numberOfMarketplaces
+await mlist.resolvedAddress
+mlist.resolvedAddress
+  const mlist = await (await ethers.getContractFactory("MarketplaceList")).attach("0xD8C983D92895E33231146C281919CD3fCEfFD610")
+exit
+await mlist.owner()
+mlist.address
+await mlist.owner()
+  const mlist = await (await ethers.getContractFactory("MarketplaceList")).attach("0xD8C983D92895E33231146C281919CD3fCEfFD610")
+await network.provider.send("eth_blockNumber")

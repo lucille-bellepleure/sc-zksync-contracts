@@ -18,47 +18,39 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   console.log('got wallet. ', wallet.address)
 
   // Create deployer object and load the artifact of the contract we want to deploy.
-  const deployer = new Deployer(hre, wallet);
+  //const deployer = new Deployer(hre, wallet);
 
   //console.log('got deployer', deployer)
 
   //const erc20 = await deployer.loadArtifact("ERC20zkSWT");
-  const marketplaceList = await deployer.loadArtifact("MarketplaceList")
+  //const marketplaceList = await deployer.loadArtifact("MarketplaceList")
 
   //console.log('got marketplaceList', marketplaceList)
 
   // Deposit some funds to L2 in order to be able to perform L2 transactions.
-  const depositAmount = ethers.utils.parseEther("0.001");
-  const depositHandle = await deployer.zkWallet.deposit({
-    to: deployer.zkWallet.address,
-    token: utils.ETH_ADDRESS,
-    amount: depositAmount,
-  });
+//   const depositAmount = ethers.utils.parseEther("0.001");
+//   const depositHandle = await deployer.zkWallet.deposit({
+//     to: deployer.zkWallet.address,
+//     token: utils.ETH_ADDRESS,
+//     amount: depositAmount,
+//   });
 
   // Wait until the deposit is processed on zkSync
-  await depositHandle.wait();
+  //await depositHandle.wait();
   //console.log('got deposit', deposit.transactionHash)
 
   // Deploy the contracts. The returned object will be of a `Contract` type, similarly to ones in `ethers`.
    //  const erc20instance = await deployer.deploy(erc20, []);
-  const marketplaceListInstance = await deployer.deploy(marketplaceList, []);
+  //const marketplaceListInstance = await deployer.deploy(marketplaceList, []);
 
   // Show the contract info.
-  const contractAddress = marketplaceListInstance.address;
-  console.log(`${marketplaceListInstance.name} was deployed to ${contractAddress}`);
+  //const contractAddress = marketplaceListInstance.address;
+  //console.log(`${marketplaceListInstance.name} was deployed to ${contractAddress}`);
 
-    await marketplaceListInstance.deployed();
+    //await marketplaceListInstance.deployed();
 
-  console.log('owner: ', await marketplaceListInstance.owner())
+  //console.log('owner: ', await marketplaceListInstance.owner())
 
-  const addMarketplace = await marketplaceListInstance.addMarketplace("Dan", "swarmIpfs", "0x100205C8BC182222299f95c7cD42D53ab133f72a")
-
-  console.log(addMarketplace)
-
-  const readMarketplace = await marketplaceListInstance.readMarketplace(0)
-  console.log(readMarketplace)
-
-  //undefined was deployed to 0x9D619a62Eae798fB7b0c651efbcF49c2B5304a06
-
+  
 
 }

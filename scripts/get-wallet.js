@@ -2,7 +2,7 @@ const { readFileSync } = require("fs");
 const { Wallet } = require("ethers");
 
 const getWallet = () => {
-  const json = JSON.parse(readFileSync("../wallet.json"));
+  const json = JSON.parse(readFileSync("./wallet.json"));
   return Wallet.fromMnemonic(json.phrase, json.path, json.locale);
 };
 

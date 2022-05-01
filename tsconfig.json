@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "types": [
+      "mocha",
+      "node",
+      "chai"
+      // ... your other types
+    ]
+  },
+  "include": ["src/**/*", "**/*.spec.ts", "**/*.test.ts"]
+  // ... your other options
+}
